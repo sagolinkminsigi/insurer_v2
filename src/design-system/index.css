@@ -1,0 +1,139 @@
+:root {
+  /* design-system color */
+  --primary-50: #f5f7ff;
+  --primary-100: #e1e9fe;
+  --primary-200: #c7d7fd;
+  --primary-300: #9ab3fb;
+  --primary-400: #7f98f8;
+  --primary-500: #586ce1;
+  --primary-600: #3e51e5;
+  --primary-700: #2f3fca;
+  --primary-800: #2937a3;
+  --primary-900: #181c4b;
+
+  --white: #ffffff;
+  --gray-100: #f6f6f7;
+  --gray-200: #eeeff1;
+  --gray-300: #e0e1e5;
+  --gray-400: #cdcdd4;
+  --gray-500: #7d7c87;
+  --gray-600: #56545b;
+  --gray-700: #313135;
+  --gray-800: #1a1a1c;
+  --gray-900: #1b1c23;
+
+  --yellow-100: #fefde8;
+  --yellow-200: #fffcc2;
+  --yellow-300: #fff787;
+  --yellow-400: #fcda13;
+  --yellow-500: #ecc006;
+  --yellow-600: #cc9602;
+  --yellow-700: #86540d;
+  --yellow-800: #432305;
+
+  --pink-100: #fef1f8;
+  --pink-200: #ffcaeb;
+  --pink-300: #ff9fd9;
+  --pink-400: #ff39a4;
+  --pink-500: #f0117f;
+  --pink-600: #ad0852;
+  --pink-700: #8f0d47;
+  --pink-800: #580026;
+
+  --negative-100: #f8cfd1;
+  --negative-200: #e85156;
+  --negative-300: #b52e36;
+
+  --positive-100: #dcfde2;
+  --positive-200: #45e268;
+  --positive-300: #12a732;
+
+  --red-100: #fdf2f1;
+  --red-200: #f8cfd1;
+  --red-300: #f29295;
+  --red-400: #e85156;
+  --red-500: #d53a41;
+  --red-600: #b52e36;
+  --red-700: #972733;
+  --red-800: #812231;
+  --red-900: #480d15;
+
+  --green-100: #f2fcf5;
+  --green-200: #e2fae9;
+  --green-300: #a8eabb;
+  --green-400: #74d589;
+  --green-500: #59bb6a;
+  --green-600: #479b54;
+  --green-700: #387a44;
+  --green-800: #264f30;
+  --green-900: #112c18;
+
+  --blue-100: #f5f7ff;
+  --blue-200: #e1e9fe;
+  --blue-300: #9ab3fb;
+  --blue-400: #7f98f8;
+  --blue-500: #586ce1;
+  --blue-600: #3e51e5;
+  --blue-700: #2f3fca;
+  --blue-800: #2937a3;
+  --blue-900: #181c4b;
+
+  --purple-100: #faf6ff;
+  --purple-200: #ead8fc;
+  --purple-300: #dec3fa;
+  --purple-400: #c390f4;
+  --purple-500: #ad67ed;
+  --purple-600: #994cdf;
+  --purple-700: #6f33a0;
+  --purple-800: #5b2a81;
+  --purple-900: #3e165f;
+
+  --bottom-sheet-height: 85px;
+
+  --gradient-200-from: #9cb1f1;
+}
+
+.contain-paint {
+  contain: paint;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+:root {
+  --assets-size: calc(100vw * (24 / 360));
+  --header-height: 4.375rem;
+  --navigator-height: 2.25rem;
+  --tab-bar-height: 5rem;
+  --body-max-width: 568px;
+  --body-without-padding-width: 536px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --assets-size: 42px;
+  }
+}
+* {
+  scrollbar-width: none;
+  user-select: none;
+  font-family: 'Pretendard', sans-serif;
+}
+
+input {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Chrome, Safari */
+  margin: 0;
+}
+
+@font-face {
+  font-family: 'Pretendard Variable';
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url('./woff2/PretendardVariable.woff2') format('woff2-variations');
+}
