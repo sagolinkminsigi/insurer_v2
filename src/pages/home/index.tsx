@@ -118,7 +118,7 @@ export default function HomePage() {
         />
       </div>
       <div className='h-2 bg-[#ECEEF4]' />
-      <div className='bg-white p-5 text-left text-[#212121]'>
+      <div className='bg-white p-5 pb-[92px] text-left text-[#212121]'>
         <div className='px-4 pb-5'>자주 묻는 질문</div>
         <FAQDropdown title={'사고링크는 어떤 사람들이 만든 서비스인가요?'}>
           {
