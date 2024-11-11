@@ -4,16 +4,28 @@ import CheckBoard from '@/assets/insurer_svg/check_board.svg'
 import CheckBoardBubble from '@/assets/insurer_svg/check_board_bubble.svg'
 import Alert from '@/assets/insurer_svg/alert.svg'
 import Congrat from '@/assets/insurer_svg/congrat.svg'
+import Suits from '@/assets/insurer_svg/suits.svg'
 import App from '@/assets/insurer_svg/app_intro.svg'
 import { FAQDropdown } from './faq'
 import { BottomSheet } from '@/components/bottom-sheet'
+import { cn } from '@/lib/utils'
 export default function HomePage() {
   return (
     <div className='h-svh text-center'>
-      {/* <FormattedDiv className='pb-9'>
-        {'피해자와의 끝없는 논쟁, 힘드시죠?\n이제 사고링크에서 돕겠습니다.'}
-      </FormattedDiv> */}
-      <div className='typo-b1s flex flex-col items-center justify-center bg-[#212121] pb-14 pt-[50px]'>
+      <div className='bg-[#0368FE]'>
+        <img
+          src={Suits}
+          width={418}
+          height={236}
+          className={cn(
+            '[mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.5)_0%,rgba(0,0,0,0))]'
+          )}
+        />
+        <FormattedDiv className='typo-t2b pb-9'>
+          {'피해자와의 끝없는 논쟁, 힘드시죠?\n이제 사고링크에서 돕겠습니다.'}
+        </FormattedDiv>
+      </div>
+      <div className='typo-b1sb flex flex-col items-center justify-center bg-[#212121] pb-14 pt-[50px]'>
         <FormattedDiv>
           {
             '사고링크는 자동차 대인보상실무를 수행하던\n사람들이 모여 만든 스타트업입니다.'
