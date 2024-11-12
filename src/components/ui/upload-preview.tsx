@@ -13,12 +13,14 @@ interface UploadPreviewProps {
   setFile: Dispatch<React.SetStateAction<File[]>>
   maxFile?: number
   totalFileSize?: number
+  previewStyle?: string
 }
 export const UploadPreview = ({
   file,
   setFile,
   maxFile = 20,
   totalFileSize = 50,
+  previewStyle = '',
 }: UploadPreviewProps) => {
   const [previews, setPreviews] = useState<FilePreview[]>([])
 
@@ -62,7 +64,8 @@ export const UploadPreview = ({
           htmlFor='file-upload'
           className={cn(
             file.length === maxFile ? 'bg-primary-200' : 'bg-primary-700',
-            'flex h-[100px] w-[100px] cursor-pointer flex-col items-center justify-center gap-1 rounded-2xl'
+            'flex h-[100px] w-[100px] cursor-pointer flex-col items-center justify-center gap-1 rounded-2xl',
+            previewStyle
           )}
         >
           <Plus className='h-6 w-6' />

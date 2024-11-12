@@ -11,6 +11,7 @@ import { BottomSheet } from '@/components/bottom-sheet'
 import { ButtonWrapper } from '@/components/button-wrapper'
 import { cn } from '@/lib/utils'
 import { format } from '@/lib/format'
+import { useNavigate } from 'react-router-dom'
 const file = [
   'https://www.ekr.or.kr/Kkrpub/webzine/2022/11/img/content204/content204_1.jpg',
   'https://www.ekr.or.kr/Kkrpub/webzine/2022/11/img/content204/content204_1.jpg',
@@ -27,6 +28,7 @@ const file = [
 const TIME_LIMIT_UPDATE_PERIOD = 500
 const TIME_LIMIT = 30 * 60 * 1000
 export default function DocsPage() {
+  const navigator = useNavigate()
   const [indentificatedTime, setIndentificatedTime] = useState<number>(
     new Date().getTime()
   )
@@ -57,7 +59,7 @@ export default function DocsPage() {
         <span className='typo-t2b'>손해 사정서</span>
         <span className='typo-c1m content-center underline'>PDF 저장</span>
       </Layout.Header>
-      <Layout.Body className={'mt-[60px]'}>
+      <Layout.Body className={cn('mt-[60px]', Layout.styles.body.maxwidth)}>
         <div className='typo-c1m flex h-[48px] items-center justify-between bg-gray-200 px-4 text-gray-900'>
           <HighlightDiv
             className='typo-c1m text-gray-900'
@@ -412,13 +414,19 @@ export default function DocsPage() {
             className={cn(
               BottomSheet.styles.center,
               Layout.styles.body.maxwidth,
-              'typo-b1sb flex w-full flex-row gap-4'
+              'typo-b1sb flex w-full flex-row gap-4 px-4'
             )}
           >
-            <ButtonWrapper className='h-[53px] w-[35%] text-nowrap rounded-[50px] bg-gray-900 px-2.5 py-2.5 text-white'>
+            <ButtonWrapper
+              className='h-[53px] w-[35%] text-nowrap rounded-[50px] bg-gray-900 px-2.5 py-2.5 text-white'
+              onClick={() => navigator('/correction')}
+            >
               이의 있어요
             </ButtonWrapper>
-            <ButtonWrapper className='h-[53px] w-[64%] rounded-[50px] py-2.5 text-white'>
+            <ButtonWrapper
+              className='h-[53px] w-[64%] rounded-[50px] py-2.5 text-white'
+              onClick={() => navigator('/agreement')}
+            >
               금액 확인했어요
             </ButtonWrapper>
           </div>

@@ -9,7 +9,9 @@ import App from '@/assets/insurer_svg/app_intro.svg'
 import { FAQDropdown } from './faq'
 import { BottomSheet } from '@/components/bottom-sheet'
 import { cn } from '@/lib/utils'
+import { useNavigate } from 'react-router-dom'
 export default function HomePage() {
+  const navigator = useNavigate()
   return (
     <div className='h-svh text-center'>
       <div className='bg-[#0368FE]'>
@@ -147,7 +149,10 @@ export default function HomePage() {
         {/* */}
       </div>
       <BottomSheet>
-        <button className='typo-b1m mb-5 h-[53px] w-[320px] rounded-full bg-[#004FFF]'>
+        <button
+          className='typo-b1m mb-5 h-[53px] w-[320px] rounded-full bg-[#004FFF]'
+          onClick={() => navigator('/report')}
+        >
           손해사정서 확인하기
         </button>
       </BottomSheet>
