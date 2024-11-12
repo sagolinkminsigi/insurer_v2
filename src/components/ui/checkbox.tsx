@@ -10,25 +10,28 @@ const Checkbox = React.forwardRef<
     isChecked: boolean
     onChangeCheck: React.Dispatch<React.SetStateAction<boolean>>
     iconStyle?: string
+    title?: string
+    titleStyle?: string
   }
 >(({ className, iconStyle, isChecked, onChangeCheck, ...props }, ref) => (
   <CheckboxPrimitive.Root
     ref={ref}
     className={cn(
       'text-gray-300 data-[state=checked]:text-primary-600',
-      'peer flex items-center gap-1',
+      'peer flex flex-col',
       className
     )}
     data-state={isChecked ? 'checked' : 'unchecked'}
     onClick={() => onChangeCheck(!isChecked)}
     {...props}
   >
-    <CheckIcon className={cn('h-4 w-4', iconStyle || '')} />
-    <span
-      className={cn('typo-c1m', isChecked ? 'text-gray-600' : 'text-gray-500')}
-    >
-      {props.children}
-    </span>
+    <div className={cn('flex items-center gap-1', props.titleStyle)}>
+      <CheckIcon className={cn('h-4 w-4', iconStyle || '')} />
+      <span className={cn(isChecked ? 'text-gray-600' : 'text-gray-500')}>
+        {props.title}
+      </span>
+    </div>
+    {props.children}
   </CheckboxPrimitive.Root>
 ))
 
