@@ -13,6 +13,12 @@ const router = createBrowserRouter([
       Component: (await import('./pages/home')).default,
     }),
   },
+  {
+    path: '/report',
+    lazy: async () => ({
+      Component: (await import('./pages/report/index.tsx')).default,
+    }),
+  },
 
   // Error routes
   { path: '/500', Component: GeneralError },

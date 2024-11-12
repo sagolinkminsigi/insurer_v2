@@ -18,7 +18,7 @@ export default function HomePage() {
           width={418}
           height={236}
           className={cn(
-            'w-[100vw] [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.5)_0%,rgba(0,0,0,0))]'
+            '[mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.5)_0%,rgba(0,0,0,0))]'
           )}
         />
         <FormattedDiv className='typo-t2b pb-9'>

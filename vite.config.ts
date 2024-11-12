@@ -6,8 +6,9 @@ import svgr from 'vite-plugin-svgr'
 export default defineConfig({
   server: {
     watch: {
-      usePolling: true, // Enable polling for file changes
+      usePolling: true,
     },
+    hmr: true,
   },
   plugins: [
     react(),

@@ -36,6 +36,13 @@ class Format {
 
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
   }
+  public timeMSSKor(time: number) {
+    const totalSeconds = Math.floor(time / 1000)
+    const minutes = Math.floor(totalSeconds / 60)
+    const seconds = totalSeconds % 60
+
+    return `${minutes}분 ${seconds < 10 ? '0' : ''}${seconds}초`
+  }
   public maskingString(input: string) {
     return input.length > 1 ? input[0] + '*'.repeat(input.length - 1) : input
   }
