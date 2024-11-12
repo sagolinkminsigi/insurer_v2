@@ -19,10 +19,10 @@ export const FAQDropdown = (props: ContractDropdownProps) => {
   }
   return (
     <div
-      className={'typo-b1m w-full rounded-xl bg-white p-4 text-gray-800'}
+      className={'typo-b2sb w-full rounded-xl bg-white '}
       onClick={handleClick}
     >
-      <div className='items center typo-[#212121] typo-b2sb flex w-full justify-between'>
+      <div className='items center flex w-full justify-between px-[20px] py-6 text-gray-900'>
         {props.title}
         <ChevronDown className={cn(isOpen ? 'rotate-180' : '')} />
       </div>
@@ -30,7 +30,7 @@ export const FAQDropdown = (props: ContractDropdownProps) => {
         <FormattedDiv
           className={cn(
             isOpen ? 'h-fit' : '',
-            'mt-3 overflow-scroll border-t border-t-gray-200 pt-3 text-[#676A71]'
+            'overflow-scroll border-t border-t-gray-200 bg-primary-50 px-[20px] pb-[20px] pt-[10px] text-gray-600'
           )}
         >
           {props.children}

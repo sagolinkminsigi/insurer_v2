@@ -116,7 +116,7 @@ export default function ConfirmPage() {
           </div>
         </div>
 
-        <div className='mx-4 flex flex-col gap-4'>
+        <div className='mx-4 mt-5 flex flex-col gap-4'>
           <div className='rounded-xl bg-primary-100 p-4'>
             <div className='typo-b1sb pb-4 text-gray-900'>
               김사고님 손해사정
@@ -176,7 +176,7 @@ export default function ConfirmPage() {
           </div>
           <div className='flex flex-col gap-4 rounded-xl bg-white p-4'>
             <div className='typo-b2sb text-primary-800'>
-              손해사정 항목별 의견
+              손해사정에 대한 추가 의견
             </div>
             <div className='typo-c1m min-h-[156px] rounded-[14px] bg-gray-100 p-3 text-gray-700'>
               보정 요청 시 작성했던 내용이 들어갑니다.
