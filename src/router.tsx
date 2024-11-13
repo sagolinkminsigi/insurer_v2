@@ -48,6 +48,12 @@ const router = createBrowserRouter([
       Component: (await import('./pages/details/index.tsx')).default,
     }),
   },
+  {
+    path: '/identification',
+    lazy: async () => ({
+      Component: (await import('./pages/identification/index.tsx')).default,
+    }),
+  },
 
   // Error routes
   { path: '/500', Component: GeneralError },
