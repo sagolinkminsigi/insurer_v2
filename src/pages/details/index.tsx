@@ -7,54 +7,17 @@ import { HighlightDiv } from '@/components/highlight-div'
 import { ButtonWrapper } from '@/components/button-wrapper'
 import { cn } from '@/lib/utils'
 import { format } from '@/lib/format'
-const file = [
-  'https://www.ekr.or.kr/Kkrpub/webzine/2022/11/img/content204/content204_1.jpg',
-  'https://www.ekr.or.kr/Kkrpub/webzine/2022/11/img/content204/content204_1.jpg',
-  'https://www.ekr.or.kr/Kkrpub/webzine/2022/11/img/content204/content204_1.jpg',
-  'https://www.ekr.or.kr/Kkrpub/webzine/2022/11/img/content204/content204_1.jpg',
-  'https://www.ekr.or.kr/Kkrpub/webzine/2022/11/img/content204/content204_1.jpg',
-  'https://www.ekr.or.kr/Kkrpub/webzine/2022/11/img/content204/content204_1.jpg',
-  'https://www.ekr.or.kr/Kkrpub/webzine/2022/11/img/content204/content204_1.jpg',
-  'https://www.ekr.or.kr/Kkrpub/webzine/2022/11/img/content204/content204_1.jpg',
-  'https://www.ekr.or.kr/Kkrpub/webzine/2022/11/img/content204/content204_1.jpg',
-  'https://www.ekr.or.kr/Kkrpub/webzine/2022/11/img/content204/content204_1.jpg',
-  'https://www.ekr.or.kr/Kkrpub/webzine/2022/11/img/content204/content204_1.jpg',
-]
+import { RequestBlock } from './request-block'
+import { ReviewBlock } from './review-block'
+import { FailBlock } from './fail-block'
+import { EndBlock } from './end-block'
+import { CancelBlock } from './cancel-block'
+
+/**
+ * TDDO: 현재 어떤식으로 props가 도착하냐에 따라 다양하게 그려질 수 있기 때문에 우선은 모든 컴포넌트를 커버할 수 있도록 작성
+ */
 const TIME_LIMIT_UPDATE_PERIOD = 500
 const TIME_LIMIT = 30 * 60 * 1000
-
-const TEMPLATE = [
-  {
-    name: '위자료',
-    price: 300000,
-    reason: '보정 요청 시 작성했던 내용이 들어갑니다.',
-    updatePrice: '200000',
-  },
-  {
-    name: '휴업손해액',
-    price: 300000,
-    reason: '',
-    updatePrice: '',
-  },
-  {
-    name: '기타손해배상금',
-    price: 300000,
-    reason: '',
-    updatePrice: '',
-  },
-  {
-    name: '향후치료비',
-    price: 300000,
-    reason: '',
-    updatePrice: '',
-  },
-  {
-    name: '치료 비상계',
-    price: 300000,
-    reason: '',
-    updatePrice: '',
-  },
-]
 
 export default function DetailsPage() {
   const [indentificatedTime, setIndentificatedTime] = useState<number>(
@@ -121,6 +84,13 @@ export default function DetailsPage() {
             1638394
             <span className='typo-b2sb text-gray-400'>접수번호</span>
           </div>
+        </div>
+        <div className='flex flex-col gap-4 px-4'>
+          <CancelBlock />
+          <EndBlock />
+          <FailBlock />
+          <ReviewBlock />
+          <RequestBlock />
         </div>
       </Layout.Body>
     </Layout>
