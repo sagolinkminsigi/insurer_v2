@@ -11,10 +11,12 @@ interface LabelInputProps {
   deletable?: boolean
   autoFocus?: boolean
   autoBlur?: boolean
+  deleterStyle?: string
   onKeydown?: (e: React.KeyboardEvent) => void
 }
 export const LabelInput = ({
   inputStyle = '',
+  deleterStyle = '',
   autoFocus,
   autoBlur,
   ...props
@@ -32,7 +34,7 @@ export const LabelInput = ({
       <input
         className={cn(
           inputStyle,
-          'typo-st1sb border-b border-b-primary-400 bg-transparent text-gray-800 outline-none'
+          'typo-st1sb w-full border-b border-b-primary-400 bg-transparent text-gray-800 outline-none'
         )}
         ref={inputRef}
         value={value}
@@ -44,7 +46,10 @@ export const LabelInput = ({
           width={24}
           height={24}
           onClick={() => setValue('')}
-          className='absolute bottom-0.5 right-0.5 text-gray-900'
+          className={cn(
+            'absolute bottom-0.5 right-0.5 text-gray-900',
+            deleterStyle
+          )}
         />
       )}
     </div>

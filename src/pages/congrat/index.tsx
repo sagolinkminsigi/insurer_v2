@@ -26,7 +26,6 @@ export default function CongratPage() {
             {
               '*사고링크에서 피해자 김사고(접수번호 18362)님에게\n최종 손해사정 금액 및 손해사정 종료를 안내드렸어요'
             }
-            1{' '}
           </FormattedDiv>
         </div>
 
