@@ -23,7 +23,8 @@ const TIME_LIMIT_UPDATE_PERIOD = 500
 const NEXT_PAGE_INDEX = 3
 export const CertificationSection = () => {
   const [value, setValue] = useState('')
-  const { navigate, indentificatedTime } = useIdentificationState()
+  const { navigate, indentificatedTime, resetIndentificatedTime } =
+    useIdentificationState()
   const [remainingTime, setRemainingTime] = useState(TIME_LIMIT)
   const [error, setError] = useState('')
   const handleChange = async (value: string) => {
@@ -50,11 +51,11 @@ export const CertificationSection = () => {
   }
 
   useEffect(() => {
+    resetIndentificatedTime()
     const time = setInterval(handleIntervalTime, TIME_LIMIT_UPDATE_PERIOD)
 
     return () => clearInterval(time)
-  }, [indentificatedTime, status])
-
+  }, [indentificatedTime])
   return (
     <Layout className={Layout.styles.bg.white}>
       <Layout.Header fixed></Layout.Header>
@@ -88,7 +89,10 @@ export const CertificationSection = () => {
               </InputOTPGroup>
             </InputOTP>
           </div>
-          <Button className='typo-c1m w-fit self-center rounded-[10px] bg-gray-600 px-1.5 py-[6.5px] text-white'>
+          <Button
+            className='typo-c1m w-fit self-center rounded-[10px] bg-gray-600 px-1.5 py-[6.5px] text-white'
+            onClick={resetIndentificatedTime}
+          >
             인증문자 다시 받기
           </Button>
         </div>
