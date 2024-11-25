@@ -16,11 +16,13 @@ import { format } from '@/lib/format'
 import { cn } from '@/lib/utils'
 import { IdentityVerificationMethod } from '@/types/identification'
 import { BottomSheet } from '@/components/bottom-sheet'
+import { supabase } from '@/supabase'
 const TITLE = '문자로 전송된\n인증번호 6자리를 입력해주세요'
 
 const TIME_LIMIT = 7 * 60 * 1000
 const TIME_LIMIT_UPDATE_PERIOD = 500
 const NEXT_PAGE_INDEX = 3
+
 export const CertificationSection = () => {
   const [value, setValue] = useState('')
   const { navigate, indentificatedTime, resetIndentificatedTime } =
@@ -56,6 +58,24 @@ export const CertificationSection = () => {
 
     return () => clearInterval(time)
   }, [indentificatedTime])
+
+  const otplogin = async () => {
+    try {
+      const { data, error } = await supabase.auth.signInAnonymously()
+      const { data: updateUserData, error: updateUserError } =
+        await supabase.auth.updateUser({
+          data: {
+            user_metadata: {
+              otp_id: 1,
+              phone: '01041173330',
+            },
+          },
+        })
+      if (error) throw new Error(error.message)
+    } catch (err) {
+      console.log(err)
+    }
+  }
   return (
     <Layout className={Layout.styles.bg.white}>
       <Layout.Header fixed></Layout.Header>
