@@ -12,6 +12,9 @@ import { ButtonWrapper } from '@/components/button-wrapper'
 import { cn } from '@/lib/utils'
 import { format } from '@/lib/format'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '@/providers/AuthProvider'
+import { useToast } from '@/components/ui/use-toast'
+import { supabase_servicerole } from '@/supabase'
 const file = [
   'https://www.ekr.or.kr/Kkrpub/webzine/2022/11/img/content204/content204_1.jpg',
   'https://www.ekr.or.kr/Kkrpub/webzine/2022/11/img/content204/content204_1.jpg',
@@ -44,6 +47,25 @@ export default function DocsPage() {
 
     setRemainingTime(currentRemainingTime)
   }
+  const { user } = useAuth()
+  const { toast } = useToast()
+  const signOut = async () => {
+    try {
+      await supabase_servicerole.auth.admin.deleteUser(user?.id as string)
+    } catch (e) {
+      toast({
+        duration: 1000,
+        description: (
+          <div className='typo-c1m flex items-center gap-2 rounded-[10px] bg-gray-700 p-2'>
+            <div className='text-white'>{`${e}`}</div>
+          </div>
+        ),
+        bottom: 70,
+      })
+      console.error(e)
+    }
+  }
+
   useEffect(() => {
     const time = setInterval(handleIntervalTime, TIME_LIMIT_UPDATE_PERIOD)
 
@@ -69,7 +91,10 @@ export default function DocsPage() {
             {`보안을 위해 \b${format.timeMSSKor(remainingTime)}\b 후 로그아웃돼요`}
           </HighlightDiv>
           <div className='flex gap-2'>
-            <ButtonWrapper className='typo-c1m h-8 w-[53px] rounded-[10px] border border-gray-500 bg-white text-gray-500'>
+            <ButtonWrapper
+              className='typo-c1m h-8 w-[53px] rounded-[10px] border border-gray-500 bg-white text-gray-500'
+              onClick={signOut}
+            >
               로그아웃
             </ButtonWrapper>
             <ButtonWrapper

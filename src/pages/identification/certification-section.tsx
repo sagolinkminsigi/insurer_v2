@@ -1,22 +1,19 @@
 import { FormattedDiv } from '@/components/formatted-div'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   InputOTP,
   InputOTPGroup,
-  InputOTPSeparator,
   InputOTPSlot,
 } from '@/components/ui/input-otp'
 import { useIdentificationState } from '.'
 import { Layout } from '@/components/custom/layout'
-import { UserNav } from '@/components/user-nav'
 import { apiIdentification, IdentificationMessage } from '@/apis/identification'
 import { Button } from '@/components/custom/button'
 import { format } from '@/lib/format'
-// import { Alert } from '../accidents/accident-alert'
 import { cn } from '@/lib/utils'
-import { IdentityVerificationMethod } from '@/types/identification'
 import { BottomSheet } from '@/components/bottom-sheet'
 import { supabase } from '@/supabase'
+import { useToast } from '@/components/ui/use-toast'
 const TITLE = '문자로 전송된\n인증번호 6자리를 입력해주세요'
 
 const TIME_LIMIT = 7 * 60 * 1000
@@ -25,20 +22,37 @@ const NEXT_PAGE_INDEX = 3
 
 export const CertificationSection = () => {
   const [value, setValue] = useState('')
-  const { navigate, indentificatedTime, resetIndentificatedTime } =
-    useIdentificationState()
+  const { toast } = useToast()
+  const {
+    navigate,
+    indentificatedTime,
+    resetIndentificatedTime,
+    phone,
+    otpId,
+    setOtpId,
+  } = useIdentificationState()
   const [remainingTime, setRemainingTime] = useState(TIME_LIMIT)
-  const [error, setError] = useState('')
   const handleChange = async (value: string) => {
-    if (remainingTime === 0) return
     try {
       setValue(value)
       if (value.length !== 6) return
-
-      // navigate(NEXT_PAGE_INDEX)
+      await apiIdentification.confirmOtp({
+        phone: phone,
+        otp_id: otpId,
+        otp_code: value,
+      })
+      await otplogin()
+      navigate(NEXT_PAGE_INDEX)
     } catch (e) {
-      if (e instanceof Error) setError(e.message)
-      else console.error(e)
+      toast({
+        duration: 1000,
+        description: (
+          <div className='typo-c1m flex items-center gap-2 rounded-[10px] bg-gray-700 p-2'>
+            <div className='text-white'>{`${e}`}</div>
+          </div>
+        ),
+        bottom: 70,
+      })
     }
   }
 
@@ -49,9 +63,14 @@ export const CertificationSection = () => {
     )
 
     setRemainingTime(currentRemainingTime)
-    if (currentRemainingTime === 0) setError(IdentificationMessage.TimeOut)
   }
-
+  const resend = async () => {
+    const { otp_id } = await apiIdentification.sendOtp({
+      phone: format.onlyGetNumber(phone),
+    })
+    resetIndentificatedTime()
+    setOtpId(otp_id)
+  }
   useEffect(() => {
     resetIndentificatedTime()
     const time = setInterval(handleIntervalTime, TIME_LIMIT_UPDATE_PERIOD)
@@ -66,8 +85,8 @@ export const CertificationSection = () => {
         await supabase.auth.updateUser({
           data: {
             user_metadata: {
-              otp_id: 1,
-              phone: '01041173330',
+              otp_id: otpId,
+              phone: format.onlyGetNumber(phone),
             },
           },
         })
@@ -111,23 +130,12 @@ export const CertificationSection = () => {
           </div>
           <Button
             className='typo-c1m w-fit self-center rounded-[10px] bg-gray-600 px-1.5 py-[6.5px] text-white'
-            onClick={resetIndentificatedTime}
+            onClick={resend}
           >
             인증문자 다시 받기
           </Button>
         </div>
-        <BottomSheet className={cn(BottomSheet.styles.center)}>
-          <Button
-            disabled={value.length < 5}
-            className={cn(
-              'h-[53px] w-full',
-              value.length < 5 ? 'bg-gray-400' : 'bg-primary-500'
-            )}
-            onClick={() => navigate(NEXT_PAGE_INDEX)}
-          >
-            인증번호 받기
-          </Button>
-        </BottomSheet>
+        <BottomSheet className={cn(BottomSheet.styles.center)}></BottomSheet>
       </Layout.Body>
     </Layout>
   )

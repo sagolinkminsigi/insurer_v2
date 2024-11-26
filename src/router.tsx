@@ -3,6 +3,7 @@ import GeneralError from './pages/errors/general-error'
 import NotFoundError from './pages/errors/not-found-error'
 import MaintenanceError from './pages/errors/maintenance-error'
 import UnauthorisedError from './pages/errors/unauthorised-error.tsx'
+import ProtectedRoute from './pages/protected/index.tsx'
 
 const router = createBrowserRouter([
   // 1. kakao login
@@ -14,9 +15,18 @@ const router = createBrowserRouter([
   },
   {
     path: '/report',
-    lazy: async () => ({
-      Component: (await import('./pages/report/index.tsx')).default,
-    }),
+    lazy: async () => {
+      const Report = (await import('./pages/report/index.tsx')).default
+      return {
+        Component: () => {
+          return (
+            <ProtectedRoute>
+              <Report />
+            </ProtectedRoute>
+          )
+        },
+      }
+    },
   },
   {
     path: '/agreement',
@@ -36,6 +46,7 @@ const router = createBrowserRouter([
       Component: (await import('./pages/correction/index.tsx')).default,
     }),
   },
+
   {
     path: '/confirm',
     lazy: async () => ({
@@ -44,9 +55,18 @@ const router = createBrowserRouter([
   },
   {
     path: '/details',
-    lazy: async () => ({
-      Component: (await import('./pages/details/index.tsx')).default,
-    }),
+    lazy: async () => {
+      const Details = (await import('./pages/details/index.tsx')).default
+      return {
+        Component: () => {
+          return (
+            <ProtectedRoute>
+              <Details />
+            </ProtectedRoute>
+          )
+        },
+      }
+    },
   },
   {
     path: '/identification',

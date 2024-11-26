@@ -4,17 +4,36 @@ import { cn } from '@/lib/utils'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { FormattedDiv } from '@/components/formatted-div'
 import XOuter from '@/assets/x_outer.svg?react'
-import { useRef, useState } from 'react'
+import { KeyboardEvent, useRef, useState } from 'react'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/custom/button'
 import { useIdentificationState } from '.'
 import { format, inputFormatType } from '@/lib/format'
+import { apiIdentification } from '@/apis/identification'
+import { useAddEventListener } from '@/hooks/use-add-eventlistener'
 const NEXT_PAGE_INDEX = 2
 export default function PhoneSection() {
-  const { navigate } = useIdentificationState()
-  const [phone, setPhone] = useState('')
+  const { navigate, phone, setPhone, setOtpId } = useIdentificationState()
   const [sensitiveInfo, setSensitiveInfo] = useState(false)
   const [personal, setPersonal] = useState(false)
+  const disabled = phone.length < 13 || !personal || !sensitiveInfo
+  const handleSendOtp = async () => {
+    try {
+      if (disabled) return
+      const { otp_id } = await apiIdentification.sendOtp({
+        phone: format.onlyGetNumber(phone),
+      })
+      setOtpId(otp_id)
+      navigate(NEXT_PAGE_INDEX)
+    } catch (e) {
+      console.error(e)
+    }
+  }
+  const handleKeyUpEvent = async (e: KeyboardEvent) => {
+    if (e.key !== 'Enter') return
+    await handleSendOtp()
+  }
+  useAddEventListener('keyup', handleKeyUpEvent)
   return (
     <Layout className={Layout.styles.bg.primary50}>
       <Layout.Header
@@ -63,12 +82,12 @@ export default function PhoneSection() {
         </div>
         <BottomSheet className={cn(BottomSheet.styles.center)}>
           <Button
-            disabled={phone.length < 13}
+            disabled={disabled}
             className={cn(
               'h-[53px] w-full',
-              phone.length < 13 ? 'bg-gray-400' : 'bg-primary-500'
+              disabled ? 'bg-gray-400' : 'bg-primary-500'
             )}
-            onClick={() => navigate(NEXT_PAGE_INDEX)}
+            onClick={handleSendOtp}
           >
             인증번호 받기
           </Button>

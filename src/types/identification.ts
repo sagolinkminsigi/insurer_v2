@@ -2,15 +2,14 @@ export interface IPAddressGetResponse {
   ip: string
 }
 export interface IdentitySendOTPResponse {
+  otp_id: number
+}
+export interface IdentityConfirmOTPResponse {
+  result: string
   message: string
 }
 export interface IdentitySendOTPPostBody {
-  // identityVerificationId: string
-  name: string
-  phoneNumber: string
-  identityNumber: string
-  operator: IdentityVerificationOperator
-  method: IdentityVerificationMethod
+  phone: string
 }
 export interface IdentifyConfirmOTPResponse {
   data: VerifiedIdentityVerification
@@ -18,7 +17,9 @@ export interface IdentifyConfirmOTPResponse {
 }
 export interface IdentifyConfirmOTPPostBody {
   // identityVerificationId: string
-  otp: string
+  phone: string
+  otp_id: number
+  otp_code: string
 }
 
 export interface IdentityVerificationSendBody {

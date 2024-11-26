@@ -11,6 +11,9 @@ type ToasterToast = ToastProps & {
   title?: React.ReactNode
   description?: React.ReactNode
   action?: ToastActionElement
+  bottom?: number
+  top?: number
+  full?: boolean
 }
 
 const actionTypes = {
@@ -130,6 +133,7 @@ let memoryState: State = { toasts: [] }
 
 function dispatch(action: Action) {
   memoryState = reducer(memoryState, action)
+
   listeners.forEach((listener) => {
     listener(memoryState)
   })

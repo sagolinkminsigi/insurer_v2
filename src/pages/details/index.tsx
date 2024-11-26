@@ -12,6 +12,9 @@ import { ReviewBlock } from './review-block'
 import { FailBlock } from './fail-block'
 import { EndBlock } from './end-block'
 import { CancelBlock } from './cancel-block'
+import { supabase, supabase_servicerole } from '@/supabase'
+import { useAuth } from '@/providers/AuthProvider'
+import { useToast } from '@/components/ui/use-toast'
 
 /**
  * TDDO: 현재 어떤식으로 props가 도착하냐에 따라 다양하게 그려질 수 있기 때문에 우선은 모든 컴포넌트를 커버할 수 있도록 작성
@@ -20,9 +23,11 @@ const TIME_LIMIT_UPDATE_PERIOD = 500
 const TIME_LIMIT = 30 * 60 * 1000
 
 export default function DetailsPage() {
+  const { user } = useAuth()
   const [indentificatedTime, setIndentificatedTime] = useState<number>(
     new Date().getTime()
   )
+  const { toast } = useToast()
   const [remainingTime, setRemainingTime] = useState(TIME_LIMIT)
 
   const resetIndentificatedTime = () =>
@@ -35,6 +40,22 @@ export default function DetailsPage() {
 
     setRemainingTime(currentRemainingTime)
   }
+  const signOut = async () => {
+    try {
+      await supabase_servicerole.auth.admin.deleteUser(user?.id as string)
+    } catch (e) {
+      toast({
+        duration: 1000,
+        description: (
+          <div className='typo-c1m flex items-center gap-2 rounded-[10px] bg-gray-700 p-2'>
+            <div className='text-white'>{`${e}`}</div>
+          </div>
+        ),
+        bottom: 70,
+      })
+    }
+  }
+
   useEffect(() => {
     const time = setInterval(handleIntervalTime, TIME_LIMIT_UPDATE_PERIOD)
 
@@ -62,7 +83,10 @@ export default function DetailsPage() {
             {`보안을 위해 \b${format.timeMSSKor(remainingTime)}\b 후 로그아웃돼요`}
           </HighlightDiv>
           <div className='flex gap-2'>
-            <ButtonWrapper className='typo-c1m h-8 w-[53px] rounded-[10px] border border-gray-500 bg-white text-gray-500'>
+            <ButtonWrapper
+              className='typo-c1m h-8 w-[53px] rounded-[10px] border border-gray-500 bg-white text-gray-500'
+              onClick={signOut}
+            >
               로그아웃
             </ButtonWrapper>
             <ButtonWrapper

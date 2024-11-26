@@ -10,13 +10,18 @@ export default function Identification() {
   )
   const resetIndentificatedTime = () =>
     setIndentificatedTime(new Date().getTime())
-
+  const [phone, setPhone] = useState('')
+  const [otpId, setOtpId] = useState<number>(0)
   return (
     <IdentificationStateContext.Provider
       value={{
         navigate,
         indentificatedTime,
         resetIndentificatedTime,
+        phone,
+        setPhone,
+        otpId,
+        setOtpId,
       }}
     >
       <IdentificationProvider index={selectedIndex} />
@@ -29,6 +34,10 @@ interface IdentificationStateContext {
   resetIndentificatedTime: () => void
 
   navigate: (n: number) => void
+  phone: string
+  setPhone: React.Dispatch<React.SetStateAction<string>>
+  otpId: number
+  setOtpId: React.Dispatch<React.SetStateAction<number>>
 }
 const IdentificationStateContext = createContext<
   IdentificationStateContext | undefined
